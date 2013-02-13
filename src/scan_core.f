@@ -113,7 +113,8 @@ DEFINITIONS
   FoldersList @ IF
   ['] (ProcessListElement) FoldersList  List-ForEach
   ELSE
-    ScanPath
+    \ ScanPath
+    \ если каталоги не заданны - ничего не делаем
   THEN
   RESULT
 ;

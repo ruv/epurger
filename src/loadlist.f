@@ -1,8 +1,11 @@
-
+: list-str+ ( a u list -- )
+  HERE 0 , 2>R
+  S", 0 C,
+  R> R> list+
+;
 : SrcToList ( list -- )
-  HERE 0 ,
-  ParseFileName S", 0 C, POSTPONE \
-  SWAP list+
+  ParseFileName ROT list-str+
+  POSTPONE \
 ;
 
 VARIABLE _curlist
@@ -13,8 +16,8 @@ VARIABLE _curlist
   _curlist !
   ['] <PRE> BEHAVIOR >R
   ['] SrcToCurrList TO <PRE>
-  INCLUDED
-  R> TO <PRE>
+  ['] INCLUDED CATCH 
+  R> TO <PRE>        THROW
 ;
 : AddToDirs ( a u -- ) \ в список обрабатываемых
   HERE >R
