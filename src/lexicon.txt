@@ -1,0 +1,86 @@
+/WIN32_FIND_DATA ( -- sizeof(find_data) )
+FoundAttributes ( a-find_data -- u )
+FoundName ( a-find_data -- a u )
+FoundCDate ( a-find_data -- t-lo t-hi )
+FoundADate ( a-find_data -- t-lo t-hi )
+FoundWDate ( a-find_data -- t-lo t-hi )
+FoundDate ( a-find_data -- t-lo t-hi ) \ та дата, которую юзер указал [-c|-w|-a]
+FoundSize ( a-find_data -- size-lo size-hi )
+IsFoundFolder ( a-find_data -- flag )
+FileNameFilter! ( addr u -- ) \ at addr+u must be 0x00
+ForEach-File ( xt -- ior )
+\ выполнить xt над каждым файлом (не каталогом). \ xt ( find_data -- )
+ForEach-Folder ( xt -- ior )
+\ выполнить xt над каждым фолдером (каталогом).
+\ Элементы "." и  ".." - пропускаются.  \ xt ( find_data -- )
+ForEach-Dir ( xt -- ior )
+\ выполнить xt над каждым фолдером (каталогом).
+\ Элементы "." и  ".." - НЕ пропускаются.  \ xt ( find_data -- )
+ForEach-FileRecord  ( xt -- ior )
+\ выполнить xt над каждым файловой записью (файлом и каталогом).
+\ Элементы "." и  ".." - НЕ пропускаются.
+\ xt ( find_data -- ) 
+InEach-FolderRecurse  ( xt -- ior )
+\ Выполнить xt в каждом каталоге (включая текущий) рекурсивно.
+\ Если нет доступа - каталог пропускается.
+\ Вначале - рекурсия, потом выполнение xt
+\ xt ( -- )
+FileExist ( addr u -- flag )
+SetDir ( a u -- ior ) \ текущий каталог
+SetDir1 ( a u -- ior )
+GetDir ( a u -- u1 ior )
+CurrDir@ ( a u -- u2 ior )
+CurrDir! ( a u -- ior )
+MAX_PATH ( -- u )
+ExtFilePathName ( a u -- a u1 )
+\ пишет имя с путем вместо имени в буфер по адресу a.
+\ буфер должен быть не менее MAX_PATH
+DELETE-FOLDER ( a u -- ior )
+TOEND-FILE ( fileid -- ior )
+\ переместить указатель файла  в конец файла.
+RENAME-FILE   ( c-addr1 u1  c-addr2 u2 -- ior ) \ FILE EXT
+\ Rename the file named by the character string c-addr1 u1 to the name
+\ in the character string c-addr2 u2. 
+>CELLS ( n1 -- n2 ) \ "to-cells" \ see: http://forth.sourceforge.net/word/to-cells/
+?WINAPI: ( -- ) \ если уже есть такое имя, то не импортирует.
+!FTime ( tlo thi a -- ) \ FILETIME
+@FTime ( a -- tlo thi ) \ FILETIME
+diffsec ( tlo1 thi1 tlo2 thi2 -- sec )
+\ дает разность по модулю между моментами времени: t1-t2  в секундах.
+SecondsToTimeDate ( sec -- sec min hr day mt year )
+TimeDateToSeconds ( sec min hr day mt year -- sec )
+NowFTime ( -- tlo thi ) \ expressed in Coordinated Universal Time (UTC).
+\ дает текущий момент времени ( ~ в формате FILETIME)
+FTimeToTimeDate ( tlo thi -- sec min hr day mt year )
+TimeDateToFTime ( sec min hr day mt year -- tlo thi )
+UTC> ( tlo thi -- tlo1 thi1 ) \ из UTC в LocalTime
+>UTC ( tlo thi -- tlo1 thi1 ) \ 
+\ =====================================
+\ лексикон eachfile.exe (с учетом логов, etc)
+( удаление файлов )
+RemoveFile ( a-fd -- )
+RemoveFolder ( a-fd -- ) \ удаляет только если фолдер пустой
+?RemoveFile  ( a-finddata -- ) \ не удаляет, если файл не достаточно "старый"
+IsRemoved ( -- flag ) \ был ли последний раз удален файл
+FileMask ( -- a u ) \ выбранная юзером маска 
+SetCurrFolder ( a u -- ) \ THROW если нет доступа
+( итераторы )
+InFolders ( xt -- ) \ xt ( -- ) \ Action in the each folder ( at them self), recurse or not
+ScanFileRecords ( xt -- ) \ xt ( a-fd -- ) \ Action for each file-record, recurse or not
+ScanFiles ( xt -- ) \ xt ( a-fd -- ) \ Action for each file, recurse or not
+ScanFolders ( xt -- ) \ xt ( a-fd -- ) \ Action for each folder, recurse or not
+( догружаемые слова )
+INIT_S ( -- ) \ ...
+RESULT ( -- ) \ ...
+AtScanSize ( fd -- fd ) \ ...
+PurgeOR ( -- ) \ ... 
+PurgeAND ( -- ) \ ...
+ScanAND ( -- ) \ ... 
+( ключи )
+Purge? ( -- flag )   \ true, если был установлен -purge
+Scan?  ( -- flag )   \ true, если был установлен -scan
+Recurse? ( -- flag ) \ true, если был установлен -r
+( main )
+ScanPath ( -- ) \ делает PurgeOR, PurgeAND, ScanAND ( если установлены ключи )
+Scan ( -- ) \ is <MAIN> \ делает ScanPath для каждого из указанных -dir или текущего.
+VECT HTTP-HEADER \ выдается, если cgi. по умолчанию ." Content-Type: text/plain" CR CR

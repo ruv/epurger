@@ -1,0 +1,51 @@
+\ 23.Oct.2001 Tue 04:08
+изменил имя лога по умолчанию на epurger.log
+добавил вывод, если не удается открыть лог.
+
+\ 25.Oct.2001 Thu 17:39
++ ScanFolders, ScanFiles
+...
++ ScanFileRecords
+- ScanFolders
+
+\ 27.Nov.2001 Tue 03:43
+* cgisupport.f
+* -help
+* make.f
+* logger.f (cgi)
+
+\ 26.Jan.2002 Sat 02:12
+* scan_core.f
+    + ScanFolders ( xt -- ) \ xt ( a-fd -- ) \ Action for each folder, recurse or not
+    * (ForFileRecords) (ForFiles) (ForFolders) - факторизация.
+
+\ 27.Jan.2002 Sun 22:46
++ scan_simple.f
+    + -xtf ccc  \ сканировать и применить ccc над каждым файлом
+    + -xtd ccc  \ сканировать и применить ccc над каждым каталогом
+
+\ 10.Mar.2002 Sun 15:04
+* cgisupport.f
+    * EvalParams \ OPTIONS выполняется всегда, независимо от CGI
+
+\ 22.Jul.2002 Mon 02:24
+* cgisupport.f
+  HTTP-HEADER перенес в EvalParams
+  т.к. иначе его поведение никак нельзя было сменить (кроме как через SAVE )
+
+\ 08.Apr.2003 Tue 01:44
+* purge_core.f
+    * DelFolder
+
+\ 12.Sep.2003 Fri 15:16
++ purge_less.f \ доп. условие: удалять файлы только менее заданного размера.
+* index.f  
+
+\ 19.Feb.2005 Sat 13:39
++ purge_keep \ доп. условия: не удалять R/O файлы, список хранимых файлов.
+* index.f  \ purge_keep included
+* loadlist.f \ факторизация SrcToList , добавлено list-str+ , LoadList правильно ведет, если файла нету
+* scan_core.f \ убран THROW, если не удалось устновить каталог (в слове (ProcessListElement) )
+* cgisupport.f \ слово STREAM-FILE в SPF4 больше не используется, OPTIONS для spf4 (т.к. оригинальное портит CommandLine )
+* readme.txt \ добавлены описания новых ключей
+* commands.f \ исправлено на ver 1.2

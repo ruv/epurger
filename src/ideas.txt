@@ -1,0 +1,70 @@
+\ 09.Oct.2001 Tue 02:41
+удаление файлов размером менее заданного
+
+\ 19.Oct.2001 Fri 22:17
+выдавать размер каталогов (поддеревьев)
+до заданной вложенности.
+-s сканировать  дерево каталогов с подсчетом объема.
+
+действия:
+-del
+-t test
+-s scan 
+
+see tut***
+
+
+\ 20.Oct.2001 Sat 22:40
+
+в list.f  
+List-ForEach  может вначале получать next node, а потом
+вызывать xt, чтобы можно было и освобождение делать...
+
+\ 22.Oct.2001 Mon 23:52
+установка приоритета процесса.
+SetPriorityClass
+
+\ 24.Oct.2001 Wed 18:22
+вызов процесса для каждого файла. (?) надо ли.
+вызов слова - надо.
+
+\ 25.Oct.2001 Thu 18:32
+escan.exe -purge -m *.tmp
+escan.exe -scan
+escanner.exe
+(?)
+
+
+   IDLE_PRIORITY_CLASS GetCurrentProcess
+   SetPriorityClass DROP
+
+   BOOL FileTimeToLocalFileTime(
+
+    CONST FILETIME *lpFileTime, // pointer to UTC file time to convert  
+    LPFILETIME lpLocalFileTime  // pointer to converted file time 
+   );
+
+
+\ 21.Nov.2001 Wed 04:36
+надо еще править findfile2.f
+ибо глюк на ..  (особо при пустом каталоге)
+и т.п.
+
+
+\ 02.Dec.2001 Sun 23:38
+ -d, --directories=ACTION  how to handle directories
+                           ACTION is 'read', 'recurse', or 'skip'.
+ -r, --recursive           equivalent to --directories=recurse.
+
+\ 22.Jul.2002 Mon 02:24
+
+cgisupport.f
+  HTTP-HEADER перенес в EvalParams
+  т.к. иначе его поведение никак нельзя было сменить (кроме как через SAVE )
+
+\ 18.Sep.2003 Thu 01:54
+  возможность не изменять текущий каталог процесса при сканировании.
+      полоечение полного имени...
+      +ключик 
+  \?
+
