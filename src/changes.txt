@@ -49,3 +49,6 @@
 * cgisupport.f \ слово STREAM-FILE в SPF4 больше не используется, OPTIONS для spf4 (т.к. оригинальное портит CommandLine )
 * readme.txt \ добавлены описания новых ключей
 * commands.f \ исправлено на ver 1.2
+
+\ 13.Feb.2013
+* Bugfix: use dynamic memory for the lists (see also bugreport at http://forum.eserv.ru/E5/Mail/eachfile.exe#1 )

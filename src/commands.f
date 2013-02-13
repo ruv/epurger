@@ -128,7 +128,7 @@ EXPORT
 ;
 
 : -h
-  ." EPurger ver 1.2 "           CR
+  ." EPurger ver 1.3.2 "           CR
   " usage: {ExeName COUNT} <keys> "  STYPE CR
   " for help: {ExeName COUNT} -help |more " STYPE CR
   " See {helpfile COUNT} for details... " STYPE CR

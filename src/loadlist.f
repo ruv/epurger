@@ -1,7 +1,14 @@
+: SALLOC-LIST ( a u -- addr )
+  DUP 255 U> IF -18 THROW THEN
+  DUP CELL+ 2 CHARS + ALLOCATE THROW ( a u a2 )
+  \ memory should be zeroed (!)
+  DUP >R  CELL+  2DUP C!  CHAR+       ( a u a3 )
+  SWAP MOVE R>
+  \ see also: ~pinka/lib/ext/alloc.f
+;
+
 : list-str+ ( a u list -- )
-  HERE 0 , 2>R
-  S", 0 C,
-  R> R> list+
+  >R SALLOC-LIST R> list+
 ;
 : SrcToList ( list -- )
   ParseFileName ROT list-str+
@@ -20,12 +27,8 @@ VARIABLE _curlist
   R> TO <PRE>        THROW
 ;
 : AddToDirs ( a u -- ) \ в список обрабатываемых
-  HERE >R
-  0 , S", 0 ,
-  R> FoldersList list+
+  SALLOC-LIST FoldersList list+
 ;
 : AddToSkip ( a u -- ) \ в список пропускаемых
-  HERE >R
-  0 , S", 0 ,
-  R> hSkipList list+
+  SALLOC-LIST hSkipList list+
 ;
