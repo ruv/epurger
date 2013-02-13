@@ -13,7 +13,8 @@ REQUIRE LAMBDA{ ~pinka\lib\lambda.f
 ;
 : InEach-FolderRecurse2  ( xt -- ior )
   DUP CATCH ?DUP IF NIP EXIT THEN
-  LAMBDA{ ( xt -- xt )
+  LAMBDA-LITE{ ( xt -- xt )
     DUP RECURSE THROW
   } InEach-SubFolder
 ;
+\ see also: http://spf.cvs.sourceforge.net/viewvc/spf/devel/~pinka/lib/lambda.f?r1=1.1&r2=1.2

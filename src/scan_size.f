@@ -77,6 +77,8 @@ VECT ShowStat
   deep @ ShowDeep @ U< IF ShowStat THEN
 ;
 
+VECT _ScanTree
+
 : ScanTree ( d-summ -- d-summ )
   deep 1+!
   LAMBDA{ ( a-fd -- )  NxtF
@@ -86,7 +88,7 @@ VECT ShowStat
     HandErr     ELSE
     FoldersScanned @ >R FoldersScanned 0!
     FilesScanned   @ >R FilesScanned 0!
-    0. RECURSE D+
+    0. _ScanTree D+
     R> FilesScanned +!
     R> FoldersScanned +!
     UpDir$ COUNT SetDir
@@ -95,6 +97,7 @@ VECT ShowStat
   -1 deep +!
   ScanBranch
 ;
+' ScanTree TO _ScanTree
 
 : ScanSize ( -- )
   0. Recurse? IF ScanTree ELSE ScanBranch THEN SummScanned+
