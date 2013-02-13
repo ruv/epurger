@@ -1,0 +1,7 @@
+=== Prepare old sources for GitHub
+
+-- convert to LF
+find src/ -type f -exec flip -u -b {} +
+
+-- convert to UTF-8
+find src/ -type f -exec enconv -L ru -x UTF-8 {} +
