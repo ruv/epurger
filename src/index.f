@@ -4,6 +4,7 @@ WARNING DUP @ SWAP 0!
 REQUIRE DateTime#      ~ac\lib\win\date\date-int.f
 WARNING !
 
+REQUIRE FINE-HEAD      ~pinka/samples/2005/lib/split-white.f
 REQUIRE {              ~ac\lib\locals.f
 REQUIRE STR@           ~ac\lib\str2.f 
 REQUIRE UD.RS          ~pinka\lib\print.f 

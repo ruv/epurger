@@ -11,7 +11,11 @@
   >R SALLOC-LIST R> list+
 ;
 : SrcToList ( list -- )
-  ParseFileName ROT list-str+
+  SOURCE FINE-HEAD FINE-TAIL UnQuoted
+  \ avoid trailing CR
+  \ line endings maybe LF or CRLF
+  \ LINE-TERM should be LF (!)
+  ROT list-str+
   POSTPONE \
 ;
 
